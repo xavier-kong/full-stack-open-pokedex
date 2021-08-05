@@ -41,6 +41,7 @@ jobs:
           checkstring: "3"
           rollbackonhealthcheckfailed: true
       - name: checking heroku logs
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip')}}
         run: heroku logs
       - uses: actions/checkout@v2
       - name: Bump version and push tag
