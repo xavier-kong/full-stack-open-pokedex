@@ -35,5 +35,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://serene-sands-82575.herokuapp.com/health"
           checkstring: "ok"
+          healthcheck: "https://serene-sands-82575.herokuapp.com/version"
+          checkstring: "1"
       - name: checking heroku logs
         run: heroku logs
