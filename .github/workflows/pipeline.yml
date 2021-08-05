@@ -42,6 +42,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       - name: checking heroku logs
         run: heroku logs
+      - uses: actions/checkout@v2
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push'}}
         uses: anothrNick/github-tag-action@1.33.0
