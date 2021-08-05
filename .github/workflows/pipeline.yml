@@ -30,15 +30,15 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-      if: ${{ github.event_name == 'push '}}
-      - name: Deploy
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "serene-sands-82575" 
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          healthcheck: "https://serene-sands-82575.herokuapp.com/version"
-          checkstring: "3"
-          rollbackonhealthcheckfailed: true
-      - name: checking heroku logs
-        run: heroku logs
+      - if: ${{ github.event_name == 'push '}}
+        - name: Deploy
+          uses: akhileshns/heroku-deploy@v3.12.12
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: "serene-sands-82575" 
+            heroku_email: ${{secrets.HEROKU_EMAIL}}
+            healthcheck: "https://serene-sands-82575.herokuapp.com/version"
+            checkstring: "3"
+            rollbackonhealthcheckfailed: true
+        - name: checking heroku logs
+          run: heroku logs
