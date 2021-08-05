@@ -34,6 +34,7 @@ jobs:
           heroku_app_name: "serene-sands-82575" 
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://serene-sands-82575.herokuapp.com/version"
-          checkstring: "2"
+          checkstring: "1"
+          rollbackonhealthcheckfailed: true
       - name: checking heroku logs
         run: heroku logs
