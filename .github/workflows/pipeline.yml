@@ -75,6 +75,5 @@ jobs:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
       - name: test contains
-        if: ${{ !contains(toJson(github.event.commits.*.message), '#skip') }}
-        if: ${{ contains(toJson(github.event.commits.*.message), 'testing') }}
+        if: ${{ !contains(toJson(github.event.commits.*.message), '#skip') && contains(toJson(github.event.commits.*.message), 'testing') }}
         run: echo "if false print"
