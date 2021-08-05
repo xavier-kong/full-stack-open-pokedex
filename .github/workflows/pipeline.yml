@@ -9,8 +9,6 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  deplyment:
-    
   simple_deployment_pipeline:
     runs-on: ubuntu-18.04
     steps:
