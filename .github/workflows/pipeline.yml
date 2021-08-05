@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -28,13 +31,15 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: Deploy
+        if: ${{ github.event_name == 'push'}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "serene-sands-82575" 
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://serene-sands-82575.herokuapp.com/version"
-          checkstring: "1"
+          checkstring: "3"
           rollbackonhealthcheckfailed: true
       - name: checking heroku logs
+        if: ${{ github.event_name == 'push '}}
         run: heroku logs
