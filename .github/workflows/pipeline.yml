@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -34,7 +37,7 @@ jobs:
           heroku_app_name: "serene-sands-82575" 
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://serene-sands-82575.herokuapp.com/version"
-          checkstring: "1"
+          checkstring: "3"
           rollbackonhealthcheckfailed: true
       - name: checking heroku logs
         run: heroku logs
