@@ -9,6 +9,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
+  deplyment:
+    
   simple_deployment_pipeline:
     runs-on: ubuntu-18.04
     steps:
@@ -30,8 +32,8 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-      - if: ${{ github.event_name == 'push '}}
         - name: Deploy
+          if: ${{ github.event_name == 'push '}}
           uses: akhileshns/heroku-deploy@v3.12.12
           with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -41,4 +43,5 @@ jobs:
             checkstring: "3"
             rollbackonhealthcheckfailed: true
         - name: checking heroku logs
+          if: ${{ github.event_name == 'push '}}
           run: heroku logs
